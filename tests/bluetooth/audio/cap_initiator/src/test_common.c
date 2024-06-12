@@ -10,6 +10,8 @@
 #include "conn.h"
 #include "test_common.h"
 
+DEFINE_FFF_GLOBALS;
+
 void test_mocks_init(void)
 {
 	mock_cap_initiator_init();
