@@ -1487,9 +1487,9 @@ void bt_hci_le_adv_report(struct net_buf *buf)
 
 static bool valid_le_scan_param(const struct bt_le_scan_param *param)
 {
-	if (IS_ENABLED(CONFIG_BT_PRIVACY) &&
-	    param->type == BT_LE_SCAN_TYPE_ACTIVE &&
-	    param->timeout != 0) {
+	//if (IS_ENABLED(CONFIG_BT_PRIVACY) &&
+	  //  param->type == BT_LE_SCAN_TYPE_ACTIVE &&
+	    //param->timeout != 0) {
 		/* This is marked as not supported as a stopgap until the (scan,
 		 * adv, init) roles are reworked into proper state machines.
 		 *
@@ -1502,8 +1502,8 @@ static bool valid_le_scan_param(const struct bt_le_scan_param *param)
 		 * update will fail or the scanner will not use the newly
 		 * generated RPA.
 		 */
-		return false;
-	}
+		//return false;
+	//}
 
 	if (param->type != BT_LE_SCAN_TYPE_PASSIVE &&
 	    param->type != BT_LE_SCAN_TYPE_ACTIVE) {
