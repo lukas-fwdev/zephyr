@@ -174,6 +174,25 @@ static struct bt_tbs_call *lookup_call(uint8_t call_index)
 	return NULL;
 }
 
+struct bt_tbs_call *bt_tbs_lookup_call(uint8_t call_index)
+{
+
+	if (call_index == BT_TBS_FREE_CALL_INDEX) {
+		return NULL;
+	}
+
+	for (int i = 0; i < ARRAY_SIZE(svc_insts); i++) {
+		struct bt_tbs_call *call = lookup_call_in_inst(&svc_insts[i],
+							       call_index);
+
+		if (call != NULL) {
+			return call;
+		}
+	}
+
+	return NULL;
+}
+
 static bool inst_check_attr(struct service_inst *inst, const struct bt_gatt_attr *attr)
 {
 	for (size_t j = 0; j < inst->attr_count; j++) {

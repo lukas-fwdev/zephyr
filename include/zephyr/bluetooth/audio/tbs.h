@@ -276,6 +276,8 @@ struct bt_tbs_cb {
 	bt_tbs_authorize_cb           authorize;
 };
 
+struct bt_tbs_call *bt_tbs_lookup_call(uint8_t call_index);
+
 /**
  * @brief Accept an alerting call.
  *
