@@ -199,7 +199,7 @@ static inline bool bt_tbs_valid_uri(const char *uri, size_t len)
 		return false;
 	}
 
-	for (int i = 1; i < len; i++) {
+	for (size_t i = 1; i < len; i++) {
 		if (uri[i] == ':' && uri[i + 1] >= FIRST_PRINTABLE_ASCII_CHAR) {
 			return true;
 		}
