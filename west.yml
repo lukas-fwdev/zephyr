@@ -282,12 +282,12 @@ manifest:
       revision: 2b498e6f36d6b82ae1da12c8b7742e318624ecf5
       path: modules/lib/gui/lvgl
     - name: mbedtls
-      revision: 5f889934359deccf421554c7045a8381ef75298f
+      revision: 85440ef5fffa95d0e9971e9163719189cf34d979
       path: modules/crypto/mbedtls
       groups:
         - crypto
     - name: mcuboot
-      revision: 58538ddfe21843edb39d7e7502812e61696e55c4
+      revision: 7a29b5a6a10f9179cac3935645c2a1356dafb2b6
       path: bootloader/mcuboot
     - name: mipi-sys-t
       path: modules/debug/mipi-sys-t
@@ -327,7 +327,7 @@ manifest:
       groups:
         - crypto
     - name: trusted-firmware-m
-      revision: 60ebade5d3d381a210af90191e475d8870b8adbc
+      revision: cc9b6cc238a47c588ecca824fec6fd210331c015
       path: modules/tee/tf-m/trusted-firmware-m
       groups:
         - tee
