@@ -2360,6 +2360,11 @@ int bt_tbs_unregister_bearer(uint8_t bearer_index)
 	return 0;
 }
 
+struct bt_tbs_call *bt_tbs_lookup_call(uint8_t call_index)
+{
+	return lookup_call(call_index);
+}
+
 int bt_tbs_accept(uint8_t call_index)
 {
 	struct tbs_inst *inst = lookup_inst_by_call_index(call_index);
