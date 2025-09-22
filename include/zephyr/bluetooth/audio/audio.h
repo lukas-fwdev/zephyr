@@ -1617,7 +1617,7 @@ int bt_audio_codec_cap_meta_set_vendor(struct bt_audio_codec_cap *codec_cap,
  *
  * @return String representation of the supplied bit
  */
-static inline char *bt_audio_context_bit_to_str(enum bt_audio_context context)
+static inline const char *bt_audio_context_bit_to_str(enum bt_audio_context context)
 {
 	switch (context) {
 	case BT_AUDIO_CONTEXT_TYPE_NONE:
@@ -1658,7 +1658,7 @@ static inline char *bt_audio_context_bit_to_str(enum bt_audio_context context)
  *
  * @return String representation of the supplied parental rating value
  */
-static inline char *bt_audio_parental_rating_to_str(enum bt_audio_parental_rating parental_rating)
+static inline const char *bt_audio_parental_rating_to_str(enum bt_audio_parental_rating parental_rating)
 {
 	switch (parental_rating) {
 	case BT_AUDIO_PARENTAL_RATING_NO_RATING:
@@ -1705,7 +1705,7 @@ static inline char *bt_audio_parental_rating_to_str(enum bt_audio_parental_ratin
  *
  * @return String representation of the supplied active state value
  */
-static inline char *bt_audio_active_state_to_str(enum bt_audio_active_state state)
+static inline const char *bt_audio_active_state_to_str(enum bt_audio_active_state state)
 {
 	switch (state) {
 	case BT_AUDIO_ACTIVE_STATE_DISABLED:
@@ -1726,7 +1726,7 @@ static inline char *bt_audio_active_state_to_str(enum bt_audio_active_state stat
  *
  * @return String representation of the supplied bit
  */
-static inline char *bt_audio_codec_cap_freq_bit_to_str(enum bt_audio_codec_cap_freq freq)
+static inline const char *bt_audio_codec_cap_freq_bit_to_str(enum bt_audio_codec_cap_freq freq)
 {
 	switch (freq) {
 	case BT_AUDIO_CODEC_CAP_FREQ_8KHZ:
@@ -1769,7 +1769,7 @@ static inline char *bt_audio_codec_cap_freq_bit_to_str(enum bt_audio_codec_cap_f
  *
  * @return String representation of the supplied bit
  */
-static inline char *
+static inline const char *
 bt_audio_codec_cap_frame_dur_bit_to_str(enum bt_audio_codec_cap_frame_dur frame_dur)
 {
 	switch (frame_dur) {
@@ -1795,7 +1795,7 @@ bt_audio_codec_cap_frame_dur_bit_to_str(enum bt_audio_codec_cap_frame_dur frame_
  *
  * @return String representation of the supplied bit
  */
-static inline char *
+static inline const char *
 bt_audio_codec_cap_chan_count_bit_to_str(enum bt_audio_codec_cap_chan_count chan_count)
 {
 	switch (chan_count) {
@@ -1829,7 +1829,7 @@ bt_audio_codec_cap_chan_count_bit_to_str(enum bt_audio_codec_cap_chan_count chan
  *
  * @return String representation of the supplied bit
  */
-static inline char *bt_audio_location_bit_to_str(enum bt_audio_location location)
+static inline const char *bt_audio_location_bit_to_str(enum bt_audio_location location)
 {
 	switch (location) {
 	case BT_AUDIO_LOCATION_MONO_AUDIO:
