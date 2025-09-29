@@ -2744,17 +2744,14 @@ static bool valid_unicast_group_stream_param(const struct bt_bap_unicast_group *
 	}
 
 	/* If unicast_group is non-NULL then we are doing a reconfigure */
-	if (unicast_group != NULL) {
-		if (param->stream->group != unicast_group) {
+	if (param->stream->group != NULL) {
+		if (param->stream->group != unicast_group && unicast_group != NULL) {
 			LOG_DBG("stream %p not part of group %p (%p)", param->stream, unicast_group,
 				param->stream->group);
 			return false;
-		}
-	} else {
-		if (param->stream->group != NULL) {
+		} else {
 			LOG_DBG("stream %p already part of group %p", param->stream,
 				param->stream->group);
-
 			return false;
 		}
 	}
