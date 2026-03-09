@@ -493,17 +493,39 @@ int bt_hci_cmd_send_sync(uint16_t opcode, struct net_buf *buf,
 			 * to map the opcode to the HCI command documentation.
 			 * Example: 0x0c03 represents HCI_Reset command.
 			 */
-			__maybe_unused bool success = process_pending_cmd(HCI_CMD_TIMEOUT);
+			bool success = process_pending_cmd(HCI_CMD_TIMEOUT);
 
-			BT_ASSERT_MSG(success, "command opcode 0x%04x timeout", opcode);
+			if (!success) {
+				/* A previously enqueued command received no response
+				 * from the controller within the timeout (e.g. the
+				 * controller processed a simultaneous LL-layer event
+				 * and left the command queue stale). Clear sync to
+				 * prevent hci_cmd_done() from later signalling the
+				 * now-dead stack semaphore if the response ever arrives.
+				 */
+				LOG_ERR("Controller unresponsive while draining, "
+					"command opcode 0x%04x timeout", opcode);
+				cmd(buf)->sync = NULL;
+				net_buf_unref(buf);
+				return -EAGAIN;
+			}
 		} while (buf != cmd);
 	}
 
 	/* Now that we have sent the command, suspend until the LL replies */
 	err = k_sem_take(&sync_sem, HCI_CMD_TIMEOUT);
-	BT_ASSERT_MSG(err == 0,
-		      "Controller unresponsive, command opcode 0x%04x timeout with err %d",
-		      opcode, err);
+	if (err != 0) {
+		/* The controller did not respond in time (e.g. because it processed
+		 * a simultaneous LL-layer disconnect before handling our HCI command).
+		 * Clear sync so hci_cmd_done() cannot later dereference the now-dead
+		 * stack semaphore if the response ever arrives.
+		 */
+		LOG_ERR("Controller unresponsive, command opcode 0x%04x timeout with err %d",
+			opcode, err);
+		cmd(buf)->sync = NULL;
+		net_buf_unref(buf);
+		return err;
+	}
 
 	status = cmd(buf)->status;
 	if (status) {
