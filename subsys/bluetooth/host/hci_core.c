@@ -479,9 +479,12 @@ int bt_hci_cmd_send_sync(uint16_t opcode, struct net_buf *buf,
 
 	/* Now that we have sent the command, suspend until the LL replies */
 	err = k_sem_take(&sync_sem, HCI_CMD_TIMEOUT);
-	BT_ASSERT_MSG(err == 0,
-		      "Controller unresponsive, command opcode 0x%04x timeout with err %d",
-		      opcode, err);
+	if (err) {
+		LOG_ERR("Controller unresponsive, command opcode 0x%04x timeout with err %d",
+			opcode, err);
+		net_buf_unref(buf);
+		return -ETIMEDOUT;
+	}
 
 	status = cmd(buf)->status;
 	if (status) {

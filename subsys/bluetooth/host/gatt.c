@@ -5866,11 +5866,18 @@ void bt_gatt_connected(struct bt_conn *conn)
 	}
 
 #if defined(CONFIG_BT_GATT_AUTO_UPDATE_MTU)
-	int err;
+	/* Only exchange MTU automatically when SMP is not in use.
+	 * When SMP is enabled, the application must trigger MTU exchange
+	 * after pairing completes to avoid racing with GATT discovery
+	 * that may start upon encryption change.
+	 */
+	if (!IS_ENABLED(CONFIG_BT_SMP)) {
+		int err;
 
-	err = bt_gatt_exchange_mtu(conn, &gatt_exchange_params);
-	if (err) {
-		LOG_WRN("MTU Exchange failed (err %d)", err);
+		err = bt_gatt_exchange_mtu(conn, &gatt_exchange_params);
+		if (err) {
+			LOG_WRN("MTU Exchange failed (err %d)", err);
+		}
 	}
 #endif /* CONFIG_BT_GATT_AUTO_UPDATE_MTU */
 }
@@ -5894,6 +5901,8 @@ void bt_gatt_encrypt_change(struct bt_conn *conn)
 
 	data.conn = conn;
 	data.sec = BT_SECURITY_L1;
+
+
 
 #if defined(CONFIG_BT_GATT_AUTO_RESUBSCRIBE)
 	add_subscriptions(conn);
