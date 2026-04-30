@@ -147,7 +147,7 @@ manifest:
       groups:
         - fs
     - name: hal_adi
-      revision: 44545c0b31a765c702132f22e797271c3f111eae
+      revision: 1da695cbfbbaefcf166a22165702a7442d5e39c0
       path: modules/hal/adi
       groups:
         - hal
@@ -213,7 +213,7 @@ manifest:
       groups:
         - hal
     - name: hal_nxp
-      revision: 2c2f28ac333e995d7279777409817c4b4f92c1ec
+      revision: 7554bc0f6f6c284972eba7b2c17b16fbb9cc0ad0
       path: modules/hal/nxp
       groups:
         - hal
